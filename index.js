@@ -9,7 +9,6 @@ bot.catch((err, ctx) => {
 	} else {
 		console.log(err)
 	}
-
 })
 
 bot.command('start', async (ctx) => {
@@ -26,61 +25,50 @@ bot.command('help', async ({ reply, replyWithSticker }) => {
 	return replyWithSticker("CAACAgUAAxkBAAI7bV-V92efOgf_86-ac4z21So0C0aEAAIgAAPg6vAdDBEzrevKwoAbBA")
 })
 
+bot.on('photo', async (ctx) => {
+	let file_id = ctx.update.message.photo[ctx.update.message.photo.length - 1].file_id
+
+	return ctx.replyWithPhoto(file_id, {caption: "📃 file_id: " + file_id})
+})
+
+bot.on('sticker', async (ctx) => {
+	let file_id = ctx.update.message.sticker.file_id
+
+	await ctx.replyWithSticker(file_id)
+	return ctx.reply("📃 file_id: " + file_id)
+})
+
+bot.on('voice', async (ctx) => {
+	let file_id = ctx.update.message.voice.file_id
+
+	return ctx.replyWithVoice(file_id, {caption: "📃 file_id: " + file_id})
+})
+
+bot.on('gif', async (ctx) => {
+	let file_id = ctx.update.message.gif.file_id
+
+	return ctx.replyWithGif(file_id, {caption: "📃 file_id: " + file_id})
+})
+
+bot.on('audio', async (ctx) => {
+	let file_id = ctx.update.message.audio.file_id
+
+	return ctx.replyWithAudio(file_id, {caption: "📃 file_id: " + file_id})
+})
+
+bot.on('video', async (ctx) => {
+	let file_id = ctx.update.message.video.file_id
+
+	return ctx.replyWithVideo(file_id, {caption: "📃 file_id: " + file_id})
+})
+
+bot.on('document', async (ctx) => {
+	let file_id = ctx.update.message.document.file_id
+
+	return ctx.replyWithDocument(file_id, {caption: "📃 file_id: " + file_id})
+})
+
 bot.on('message', async (ctx) => {
-	// Фото
-	if (ctx.updateSubTypes.indexOf("photo") !== -1) {
-		let file_id = ctx.update.message.photo[ctx.update.message.photo.length - 1].file_id
-
-		return ctx.replyWithPhoto(file_id, {caption: "📃 file_id: " + file_id})
-
-	}
-
-	// Стикеры
-	if (ctx.updateSubTypes.indexOf("sticker") !== -1) {
-		let file_id = ctx.update.message.sticker.file_id
-
-		await ctx.replyWithSticker(file_id)
-		return ctx.reply("📃 file_id: " + file_id)
-	}
-
-	// Голосовое сообщение
-	if (ctx.updateSubTypes.indexOf("voice") !== -1) {
-
-		let file_id = ctx.update.message.voice.file_id
-
-		return ctx.replyWithVoice(file_id, {caption: "📃 file_id: " + file_id})
-	}
-
-	// Гифки
-	if (ctx.updateSubTypes.indexOf("gif") !== -1) {
-
-		let file_id = ctx.update.message.gif.file_id
-
-		return ctx.replyWithGif(file_id, {caption: "📃 file_id: " + file_id})
-	}
-
-	// Аудио
-	if (ctx.updateSubTypes.indexOf("audio") !== -1) {
-
-		let file_id = ctx.update.message.audio.file_id
-
-		return ctx.replyWithAudio(file_id, {caption: "📃 file_id: " + file_id})
-	}
-
-	// Видео
-	if (ctx.updateSubTypes.indexOf("video") !== -1) {
-		let file_id = ctx.update.message.video.file_id
-
-		return ctx.replyWithVideo(file_id, {caption: "📃 file_id: " + file_id})
-	}
-
-	// Документы
-	if (ctx.updateSubTypes.indexOf("document") !== -1) {
-
-		let file_id = ctx.update.message.document.file_id
-
-		return ctx.replyWithDocument(file_id, {caption: "📃 file_id: " + file_id})
-	}
 
 	return ctx.reply(`
 	🔸 Для того чтобы получить file_id, отправьте:
